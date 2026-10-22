@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Reina Crujiente: Empanada de Carne Mechada</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            empanada: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              300: '#fcd34d',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            },
+            carne: {
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              900: '#450a0a',
+            },
+            aguacate: {
+              500: '#84cc16',
+              600: '#65a30d',
+              700: '#4d7c0f',
+            }
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+            'steam': 'steam 2s infinite ease-out',
+            'pulse-glow': 'pulseGlow 2s infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-10px) rotate(1deg)' },
+            },
+            steam: {
+              '0%': { opacity: '0', transform: 'translateY(0) scaleX(1)' },
+              '50%': { opacity: '0.6', transform: 'translateY(-15px) scaleX(1.2)' },
+              '100%': { opacity: '0', transform: 'translateY(-30px) scaleX(1.5)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 25px rgba(245, 158, 11, 0.4)' },
+              '50%': { boxShadow: '0 0 45px rgba(245, 158, 11, 0.8)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .empanada-shape {
+      border-radius: 200px 200px 20px 20px;
+    }
+    
+    /* Text stroke custom styling */
+    .text-stroke {
+      -webkit-text-stroke: 1.5px #7c2d12;
+    }
+
+    .bg-pattern {
+      background-color: #0f172a;
+      background-image: radial-gradient(#d97706 0.75px, transparent 0.75px), radial-gradient(#d97706 0.75px, #0f172a 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      background-opacity: 0.1;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-empanada-500 selection:text-slate-900 antialiased overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-amber-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-empanada-600 to-empanada-300 flex items-center justify-center shadow-lg shadow-empanada-600/30">
+          <i class="fa-solid fa-utensils text-slate-950 text-lg"></i>
+        </div>
+        <span class="font-display font-extrabold text-xl sm:text-2xl bg-gradient-to-r from-empanada-300 via-amber-200 to-carne-500 bg-clip-text text-transparent">
+          La Criollita
+        </span>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide text-slate-300">
+        <a href="#creador" class="hover:text-empanada-300 transition-colors">Arma Tu Empanada</a>
+        <a href="#calculadora" class="hover:text-empanada-300 transition-colors">Calculadora</a>
+        <a href="#receta" class="hover:text-empanada-300 transition-colors">Secretos de Cocina</a>
+        <a href="#quiz" class="hover:text-empanada-300 transition-colors">Quiz Guasacaco</a>
+      </div>
+
+      <a href="#creador" class="bg-gradient-to-r from-empanada-500 to-empanada-600 hover:from-empanada-400 hover:to-empanada-500 text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg shadow-empanada-500/25 transition-all transform hover:scale-105 active:scale-95 text-sm flex items-center gap-2">
+        <span>¡Probar Ahora!</span>
+        <i class="fa-solid fa-fire text-carne-900"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-slate-950 via-amber-950/20 to-slate-950">
+    <!-- Glow backdrops -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-empanada-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-carne-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-empanada-500/10 border border-empanada-500/30 text-empanada-300 text-xs sm:text-sm font-semibold tracking-wider uppercase">
+            <span class="flex h-2 w-2 rounded-full bg-empanada-400 animate-ping"></span>
+            El Patrimonio Crujiente de Venezuela 🇻🇪
+          </div>
+
+          <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-black leading-none tracking-tight text-white">
+            La Reina Crujiente: <br/>
+            <span class="bg-gradient-to-r from-empanada-300 via-amber-400 to-carne-500 bg-clip-text text-transparent">
+              Carne Mechada
+            </span>
+          </h1>
+
+          <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Dorada, crujiente por fuera, suave por dentro y rebosante de carne jugosa sofrita con ají dulce. Experimenta la gloriosa sensación de una verdadera empanada venezolana recién hecha.
+          </p>
+
+          <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#creador" class="bg-gradient-to-r from-empanada-500 to-empanada-600 hover:from-empanada-400 hover:to-empanada-500 text-slate-950 font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-empanada-500/20 transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-3">
+              <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+              <span>Simular tu Empanada Ideal</span>
+            </a>
+            <a href="#calculadora" class="bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold px-8 py-4 rounded-2xl transition-all text-center flex items-center justify-center gap-2">
+              <i class="fa-solid fa-calculator text-empanada-400"></i>
+              <span>Calcular Receta</span>
+            </a>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="pt-8 grid grid-cols-3 gap-4 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0">
+            <div>
+              <p class="font-display text-2xl sm:text-3xl font-extrabold text-empanada-400">100%</p>
+              <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Sabor Criollo</p>
+            </div>
+            <div>
+              <p class="font-display text-2xl sm:text-3xl font-extrabold text-empanada-400">Crujiente</p>
+              <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Masa Perfecta</p>
+            </div>
+            <div>
+              <p class="font-display text-2xl sm:text-3xl font-extrabold text-empanada-400">∞ Salsas</p>
+              <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Acompañamiento</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual: Interactive Interactive Empanada Showcase -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+            
+            <!-- Glow Effect -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-empanada-500/20 to-carne-600/30 rounded-full blur-2xl animate-pulse"></div>
+
+            <!-- Stylized Empanada Card/Graphic -->
+            <div class="relative w-full h-full bg-slate-900/90 border border-amber-500/30 rounded-3xl p-8 flex flex-col items-center justify-between shadow-2xl backdrop-blur-xl animate-float">
+              
+              <!-- Steam Effects -->
+              <div class="flex gap-4 absolute -top-8 left-1/2 -translate-x-1/2">
+                <div class="w-2 h-8 bg-amber-200/40 rounded-full blur-sm animate-steam"></div>
+                <div class="w-2.5 h-10 bg-amber-200/50 rounded-full blur-sm animate-steam" style="animation-delay: 0.5s;"></div>
+                <div class="w-2 h-8 bg-amber-200/40 rounded-full blur-sm animate-steam" style="animation-delay: 0.9s;"></div>
+              </div>
+
+              <!-- Badge Header -->
+              <div class="w-full flex justify-between items-center text-xs font-bold uppercase tracking-wider text-empanada-300">
+                <span class="bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">Recién Frita</span>
+                <span>🔥 180°C Aceite Caliente</span>
+              </div>
+
+              <!-- SVG/Canvas Stylized Empanada Visual -->
+              <div class="my-auto relative group cursor-pointer" onclick="triggerEmpanadaEffect()">
+                <svg viewBox="0 0 300 180" class="w-72 sm:w-80 h-auto filter drop-shadow-[0_15px_25px_rgba(217,119,6,0.5)] transition-transform duration-300 group-hover:scale-105">
+                  <defs>
+                    <linearGradient id="empanadaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#fbbf24" />
+                      <stop offset="50%" stop-color="#f59e0b" />
+                      <stop offset="100%" stop-color="#d97706" />
+                    </linearGradient>
+                    <linearGradient id="bordeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#fef08a" />
+                      <stop offset="100%" stop-color="#f59e0b" />
+                    </linearGradient>
+                  </defs>
+                  
+                  <!-- Main Body -->
+                  <path d="M 10 160 Q 150 10 290 160 C 200 175 100 175 10 160 Z" fill="url(#empanadaGrad)" stroke="#b45309" stroke-width="3" />
+                  
+                  <!-- Repulgue/Encaje (Borde Crimp) -->
+                  <path d="M 10 160 Q 30 140 50 160 Q 70 140 90 160 Q 110 140 130 160 Q 150 140 170 160 Q 190 140 210 160 Q 230 140 250 160 Q 270 140 290 160" 
+                        fill="none" stroke="url(#bordeGrad)" stroke-width="6" stroke-linecap="round" />
+
+                  <!-- Fried Bubbles/Texture -->
+                  <circle cx="90" cy="110" r="5" fill="#fef08a" opacity="0.6" />
+                  <circle cx="150" cy="80" r="7" fill="#fef08a" opacity="0.5" />
+                  <circle cx="200" cy="120" r="4" fill="#fef08a" opacity="0.7" />
+                  <circle cx="120" cy="135" r="6" fill="#fef08a" opacity="0.4" />
+                  <circle cx="170" cy="100" r="5" fill="#fef08a" opacity="0.6" />
+                </svg>
+
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/60 rounded-2xl backdrop-blur-xs">
+                  <span class="text-white font-bold text-sm bg-empanada-600 px-4 py-2 rounded-full shadow-lg">¡Haz Clic para Probar! 💥</span>
+                </div>
+              </div>
+
+              <!-- Card Footer Info -->
+              <div class="w-full text-center bg-slate-950/60 p-3 rounded-2xl border border-slate-800">
+                <p class="text-xs text-slate-400">Relleno Estella</p>
+                <p class="font-bold text-empanada-300 text-sm">Carne de Falda Desmecha' con Sofrito Criollo</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 2: Interactive Builder ("Arma tu Empanada") -->
+  <section id="creador" class="py-20 bg-slate-900/60 relative border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mb-4">
+          Arma Tu <span class="text-empanada-400">Combo Divino</span>
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg">
+          Personaliza tu empanada de carne mechada con los contornos y salsas más icónicas de la gastronomía venezolana. ¡Descubre su nivel de sabrosura!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Controls Panel -->
+        <div class="lg:col-span-7 bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-8 shadow-xl">
+          
+          <!-- Base Choice -->
+          <div>
+            <h3 class="font-display font-bold text-lg text-white mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-cookie text-empanada-400"></i> 1. Estilo de Masa
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="masaOptions">
+              <button onclick="selectMasa('clasica')" id="masa-clasica" class="masa-btn active p-3 rounded-xl border border-empanada-500 bg-empanada-500/10 text-left transition">
+                <p class="font-bold text-sm text-empanada-300">Tradicional</p>
+                <p class="text-xs text-slate-400">Maíz amarillo, toquito dulce</p>
+              </button>
+              <button onclick="selectMasa('extra-crujiente')" id="masa-extra-crujiente" class="masa-btn p-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900 text-left transition">
+                <p class="font-bold text-sm text-slate-200">Extra Crujiente</p>
+                <p class="text-xs text-slate-400">Doble fritura dorada</p>
+              </button>
+              <button onclick="selectMasa('dulce')" id="masa-dulce" class="masa-btn p-3 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900 text-left transition col-span-2 sm:col-span-1">
+                <p class="font-bold text-sm text-slate-200">Toque de Papelón</p>
+                <p class="text-xs text-slate-400">Dulce & Salado criollo</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- Extra Toppings -->
+          <div>
+            <h3 class="font-display font-bold text-lg text-white mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-layer-group text-empanada-400"></i> 2. Rellenos Extra (Combinaciones)
+            </h3>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700 transition">
+                <input type="checkbox" onchange="toggleTopping('queso')" class="w-5 h-5 rounded accent-empanada-500">
+                <div>
+                  <p class="text-sm font-bold text-slate-200">Queso Blanco Rallado</p>
+                  <p class="text-xs text-slate-400">Queso duro paisa o llanero</p>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700 transition">
+                <input type="checkbox" onchange="toggleTopping('caraotas')" class="w-5 h-5 rounded accent-empanada-500">
+                <div>
+                  <p class="text-sm font-bold text-slate-200">Caraotas Refritas</p>
+                  <p class="text-xs text-slate-400">Negritas y sazonadas</p>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700 transition">
+                <input type="checkbox" onchange="toggleTopping('tajadas')" class="w-5 h-5 rounded accent-empanada-500">
+                <div>
+                  <p class="text-sm font-bold text-slate-200">Tajadas Maduras</p>
+                  <p class="text-xs text-slate-400">Plátano frito dulcito</p>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700 transition">
+                <input type="checkbox" onchange="toggleTopping('huevo')" class="w-5 h-5 rounded accent-empanada-500">
+                <div>
+                  <p class="text-sm font-bold text-slate-200">Huevo Duro Sancochado</p>
+                  <p class="text-xs text-slate-400">En rodajas finas</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Salsas Selection -->
+          <div>
+            <h3 class="font-display font-bold text-lg text-white mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-bottle-droplet text-empanada-400"></i> 3. Baño de Salsas (¡Obligatorio!)
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button onclick="toggleSalsa('guasacaca')" id="salsa-guasacaca" class="salsa-btn p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition flex items-center gap-3">
+                <span class="w-4 h-4 rounded-full bg-aguacate-500 shrink-0"></span>
+                <div>
+                  <p class="font-bold text-xs text-slate-200">Guasacaca</p>
+                  <p class="text-[10px] text-slate-400">Aguacate & cilantro</p>
+                </div>
+              </button>
+
+              <button onclick="toggleSalsa('ajo')" id="salsa-ajo" class="salsa-btn p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition flex items-center gap-3">
+                <span class="w-4 h-4 rounded-full bg-slate-100 shrink-0"></span>
+                <div>
+                  <p class="font-bold text-xs text-slate-200">Salsa de Ajo</p>
+                  <p class="text-[10px] text-slate-400">Cremosa e intensa</p>
+                </div>
+              </button>
+
+              <button onclick="toggleSalsa('picante')" id="salsa-picante" class="salsa-btn p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition flex items-center gap-3">
+                <span class="w-4 h-4 rounded-full bg-carne-600 shrink-0"></span>
+                <div>
+                  <p class="font-bold text-xs text-slate-200">Picante Criollo</p>
+                  <p class="text-[10px] text-slate-400">Ají chiverito y suero</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bebida Acompañante -->
+          <div>
+            <h3 class="font-display font-bold text-lg text-white mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-glass-water text-empanada-400"></i> 4. Para Acompañar
+            </h3>
+            <select id="bebidaSelect" onchange="updateMuerdeMetro()" class="w-full bg-slate-900 border border-slate-800 text-slate-200 p-3 rounded-xl focus:border-empanada-500 focus:outline-none">
+              <option value="malta">Malta Fría bien helada 🍺</option>
+              <option value="papelon">Papelón con Limón 🍋</option>
+              <option value="hit">Refresco de Colita / Naranja 🥤</option>
+              <option value="cafe">Café Guayoyo ☕</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Interactive Live Preview Card & Score -->
+        <div class="lg:col-span-5 bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 flex flex-col justify-between h-full shadow-2xl relative overflow-hidden">
+          
+          <div class="space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+              <h3 class="font-display font-bold text-xl text-white">Vista Previa del Combo</h3>
+              <span class="text-xs bg-empanada-500/20 text-empanada-300 font-bold px-3 py-1 rounded-full border border-empanada-500/30">
+                Personalizado
+              </span>
+            </div>
+
+            <!-- Dynamic Combo Visual Representation -->
+            <div class="relative bg-gradient-to-b from-slate-900 to-slate-950 p-6 rounded-2xl border border-slate-800/80 min-h-[220px] flex flex-col items-center justify-center text-center">
+              
+              <!-- Visual Icons Cascade -->
+              <div class="text-5xl mb-4 transition-all duration-300 transform scale-110 flex items-center justify-center gap-2 flex-wrap" id="visualIcons">
+                🥟
+              </div>
+
+              <h4 id="comboTitle" class="font-display text-xl font-bold text-empanada-300 mb-1">
+                Empanada de Carne Mechada Clásica
+              </h4>
+              <p id="comboDetails" class="text-xs text-slate-400 max-w-xs">
+                Masa tradicional dorada, rellena de abundante carne mechada jugosa.
+              </p>
+
+              <!-- Applied Salsas Badges -->
+              <div id="salsasBadges" class="flex flex-wrap gap-2 mt-4 justify-center">
+                <!-- Salsas injected via JS -->
+              </div>
+            </div>
+
+            <!-- Muerde-metro (Sabrosura Score) -->
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  <i class="fa-solid fa-gauge-high text-empanada-400"></i> Muerde-metro
+                </span>
+                <span id="scoreText" class="font-display font-black text-2xl text-empanada-400">
+                  85%
+                </span>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="w-full bg-slate-800 rounded-full h-3 overflow-hidden p-0.5">
+                <div id="scoreBar" class="bg-gradient-to-r from-empanada-500 via-amber-400 to-carne-600 h-full rounded-full transition-all duration-500" style="width: 85%;"></div>
+              </div>
+
+              <p id="scoreVerdict" class="text-xs text-slate-300 italic text-center pt-1">
+                "¡Una empanada digna de domingo en la playa!"
+              </p>
+            </div>
+          </div>
+
+          <button onclick="ordenarSimulacion()" class="w-full mt-6 bg-gradient-to-r from-empanada-500 to-empanada-600 hover:from-empanada-400 hover:to-empanada-500 text-slate-950 font-extrabold py-4 rounded-xl transition shadow-lg shadow-empanada-500/20 active:scale-95 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-heart"></i>
+            <span>¡Guardar mi Combo Ideal!</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 3: Calculator ("Calculadora de Masa y Relleno") -->
+  <section id="calculadora" class="py-20 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left info -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-carne-600/10 border border-carne-600/30 text-carne-500 text-xs font-semibold tracking-wider uppercase">
+            <i class="fa-solid fa-calculator"></i> Para Cocineros & Familias
+          </div>
+
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+            Calculadora de <br/>
+            <span class="text-empanada-400">Masa y Carne</span>
+          </h2>
+
+          <p class="text-slate-400 text-base leading-relaxed">
+            ¿Tienes un desayuno familiar, una fiesta o simplemente antojo masivo? Ingresa la cantidad de empanadas que deseas preparar y obtendrás las proporciones exactas de Harina PAN, agua, sal y carne mechada.
+          </p>
+
+          <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 text-xs text-slate-400 space-y-2">
+            <p class="font-bold text-slate-200"><i class="fa-solid fa-lightbulb text-empanada-400"></i> Consejo del chef:</p>
+            <p>Calculamos un promedio de empanada mediano-grande (~100g de masa + ~60g de carne por unidad).</p>
+          </div>
+        </div>
+
+        <!-- Right Calculator Box -->
+        <div class="lg:col-span-7 bg-slate-900 p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl space-y-8">
+          
+          <!-- Slider & Quantity Input -->
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <label class="font-display font-bold text-lg text-white">¿Cuántas empanadas quieres preparar?</label>
+              <div class="flex items-center gap-2">
+                <input type="number" id="empCountInput" value="12" min="1" max="100" oninput="updateCalculatorFromInput()" class="w-20 bg-slate-950 border border-slate-700 text-empanada-400 font-extrabold text-xl text-center p-2 rounded-xl focus:outline-none focus:border-empanada-500">
+                <span class="text-xs text-slate-400 font-bold">uds.</span>
+              </div>
+            </div>
+
+            <input type="range" id="empRange" min="1" max="50" value="12" oninput="updateCalculatorFromRange()" class="w-full h-3 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-empanada-500">
+            <div class="flex justify-between text-xs text-slate-500 mt-2 font-semibold">
+              <span>1 emp (Personal)</span>
+              <span>12 emps (Familia)</span>
+              <span>50 emps (Fiesta)</span>
+            </div>
+          </div>
+
+          <!-- Ingredients Grid Outputs -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80">
+              <span class="text-xs text-slate-400 font-medium block mb-1">Harina P.A.N.</span>
+              <p id="resHarina" class="font-display text-2xl font-extrabold text-empanada-400">600 g</p>
+              <span class="text-[10px] text-slate-500">Maíz precocido</span>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80">
+              <span class="text-xs text-slate-400 font-medium block mb-1">Agua Entibiada</span>
+              <p id="resAgua" class="font-display text-2xl font-extrabold text-cyan-400">750 ml</p>
+              <span class="text-[10px] text-slate-500">Aprox. 3 tazas</span>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80">
+              <span class="text-xs text-slate-400 font-medium block mb-1">Carne Mechada</span>
+              <p id="resCarne" class="font-display text-2xl font-extrabold text-carne-500">720 g</p>
+              <span class="text-[10px] text-slate-500">Ya cocida y guisada</span>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80">
+              <span class="text-xs text-slate-400 font-medium block mb-1">Sal</span>
+              <p id="resSal" class="font-display text-xl font-bold text-slate-200">2.4 cdtas</p>
+              <span class="text-[10px] text-slate-500">Para la masa</span>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80">
+              <span class="text-xs text-slate-400 font-medium block mb-1">Azúcar / Papelón</span>
+              <p id="resAzucar" class="font-display text-xl font-bold text-amber-300">1.2 cdas</p>
+              <span class="text-[10px] text-slate-500">El toque secreto dulce</span>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80">
+              <span class="text-xs text-slate-400 font-medium block mb-1">Aceite p/ Freír</span>
+              <p id="resAceite" class="font-display text-xl font-bold text-slate-200">~1 Litro</p>
+              <span class="text-[10px] text-slate-500">Fritura profunda</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 4: Secretos de Cocina (Guía de la Carne Mechada) -->
+  <section id="receta" class="py-20 bg-slate-900/40 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white mb-4">
+          La Guía de la <span class="text-carne-500">Carne Mechada Perfecta</span>
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg">
+          No existe una gran empanada sin un guiso memorable. Sigue los pasos de las abuelas criollas para lograr la sazón perfecta.
+        </p>
+      </div>
+
+      <!-- Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        
+        <!-- Step 1 -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 hover:border-empanada-500/50 transition duration-300 space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-carne-600/20 border border-carne-600/40 text-carne-500 font-display font-black text-xl flex items-center justify-center">
+            01
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">Sancochar la Falda</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Cocina la carne de falda de res en olla de presión con ajo, cebolla y cilantro durante 45 min hasta que se deshaga sola.
+          </p>
+          <div class="text-[11px] text-empanada-400 font-semibold bg-empanada-500/10 px-3 py-1.5 rounded-lg inline-block">
+            💡 Guardar el caldo para la masa.
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 hover:border-empanada-500/50 transition duration-300 space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-empanada-600/20 border border-empanada-600/40 text-empanada-400 font-display font-black text-xl flex items-center justify-center">
+            02
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">Desmechar con Cariño</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Deja enfriar y deshebra las hebras bien finas usando dos tenedores o con las manos limpiecitas.
+          </p>
+          <div class="text-[11px] text-empanada-400 font-semibold bg-empanada-500/10 px-3 py-1.5 rounded-lg inline-block">
+            💡 Hebras finas = Mejor mordida.
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 hover:border-empanada-500/50 transition duration-300 space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-600/20 border border-amber-600/40 text-amber-400 font-display font-black text-xl flex items-center justify-center">
+            03
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">El Sofrito Criollo</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Sofríe bastante cebolla, pimentón rojo y, crucialmente, <strong>ají dulce picadito</strong> con ajo y un toque de onoto/achiote.
+          </p>
+          <div class="text-[11px] text-empanada-400 font-semibold bg-empanada-500/10 px-3 py-1.5 rounded-lg inline-block">
+            💡 El ají dulce es el alma.
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 hover:border-empanada-500/50 transition duration-300 space-y-4 relative group">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-600/20 border border-emerald-600/40 text-emerald-400 font-display font-black text-xl flex items-center justify-center">
+            04
+          </div>
+          <h3 class="font-display font-bold text-xl text-white">Guisar e Integrar</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Mezcla la carne con el sofrito, añade tomate triturado, comino y deja reducir hasta que quede jugosa pero no muy líquida.
+          </p>
+          <div class="text-[11px] text-empanada-400 font-semibold bg-empanada-500/10 px-3 py-1.5 rounded-lg inline-block">
+            💡 Evita el exceso de caldo.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Accordion: Tips del Borde Crujiente -->
+      <div class="max-w-3xl mx-auto bg-slate-950 rounded-3xl border border-slate-800 p-6 sm:p-8 space-y-4">
+        <h3 class="font-display font-bold text-2xl text-white mb-6 flex items-center gap-3">
+          <i class="fa-solid fa-star text-empanada-400"></i> Secretos para la Masa y el Borde Perfecto
+        </h3>
+
+        <!-- Accordion Item 1 -->
+        <div class="border border-slate-800 rounded-2xl overflow-hidden">
+          <button onclick="toggleAccordion('acc1')" class="w-full text-left p-4 bg-slate-900/60 font-bold text-sm text-slate-200 flex justify-between items-center hover:bg-slate-900 transition">
+            <span>✨ ¿Cómo lograr la masa fina y crujiente?</span>
+            <i id="acc1-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+          </button>
+          <div id="acc1" class="hidden p-4 text-xs text-slate-400 bg-slate-950 border-t border-slate-800 leading-relaxed">
+            Agrega una cucharadita de azúcar o papelón rallado y una cucharada de harina de trigo o fécula de maíz (maizena) por cada taza de Harina PAN. Esto le da una textura dorada, quebradiza y extremadamente crujiente.
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="border border-slate-800 rounded-2xl overflow-hidden">
+          <button onclick="toggleAccordion('acc2')" class="w-full text-left p-4 bg-slate-900/60 font-bold text-sm text-slate-200 flex justify-between items-center hover:bg-slate-900 transition">
+            <span>🥣 El truco de la bolsa plástica para armar</span>
+            <i id="acc2-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+          </button>
+          <div id="acc2" class="hidden p-4 text-xs text-slate-400 bg-slate-950 border-t border-slate-800 leading-relaxed">
+            Usa una bolsa plástica limpia (o un empaque de harina cortado) ligeramente engrasado con agua o gotas de aceite. Forma la bola de masa, aplana uniformemente con una tabla fina, coloca el relleno en el centro y dobla.
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="border border-slate-800 rounded-2xl overflow-hidden">
+          <button onclick="toggleAccordion('acc3')" class="w-full text-left p-4 bg-slate-900/60 font-bold text-sm text-slate-200 flex justify-between items-center hover:bg-slate-900 transition">
+            <span>🔥 Temperatura del Aceite</span>
+            <i id="acc3-icon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+          </button>
+          <div id="acc3" class="hidden p-4 text-xs text-slate-400 bg-slate-950 border-t border-slate-800 leading-relaxed">
+            El aceite debe estar bien caliente (~180°C), pero no humeando. Si está muy frío, la empanada absorbe grasa y queda blanda. Si está hirviendo demasiado, se dora por fuera pero no se cocina bien la masa interna.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 5: Quiz Exprés ("¿Qué tan guasacaco eres?") -->
+  <section id="quiz" class="py-20 bg-slate-950 relative border-t border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-gradient-to-b from-slate-900 to-slate-950 p-8 sm:p-12 rounded-3xl border border-empanada-500/30 shadow-2xl text-center relative overflow-hidden">
+        
+        <!-- Glow decorative -->
+        <div class="absolute -top-12 -right-12 w-40 h-40 bg-empanada-500/20 rounded-full blur-2xl"></div>
+
+        <span class="inline-block px-4 py-1.5 rounded-full bg-empanada-500/10 border border-empanada-500/30 text-empanada-300 text-xs font-bold uppercase tracking-wider mb-4">
+          Mini-Quiz Interactivo 🥑
+        </span>
+
+        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mb-3">
+          ¿Qué tan <span class="text-empanada-400">Guasacaco</span> eres?
+        </h2>
+        <p class="text-slate-400 text-sm max-w-xl mx-auto mb-8">
+          Responde 3 preguntas sencillas y descubre tu perfil oficial de comensal de empanadas.
+        </p>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="text-left bg-slate-950 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
+          
+          <!-- Question Content Injected via JS -->
+          <div id="questionArea">
+            <!-- Dynamic JS injection -->
+          </div>
+
+        </div>
+
+        <!-- Result Card (Hidden Initially) -->
+        <div id="quizResult" class="hidden bg-slate-950 p-8 rounded-2xl border border-empanada-500/40 space-y-4">
+          <div class="text-5xl" id="resultEmoji">🥑</div>
+          <h3 class="font-display font-extrabold text-2xl text-empanada-300" id="resultTitle">
+            ¡El Bañado en Salsa Supremo!
+          </h3>
+          <p class="text-slate-300 text-xs sm:text-sm max-w-md mx-auto leading-relaxed" id="resultDesc">
+            Para ti, la empanada es solo un vehículo para transportar litros de guasacaca y salsa de ajo. Sin salsa no hay vida.
+          </p>
+          <button onclick="resetQuiz()" class="mt-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold px-6 py-2.5 rounded-xl text-xs transition">
+            Volver a intentar
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="flex items-center gap-2">
+        <span>Hecho con</span>
+        <i class="fa-solid fa-heart text-carne-500"></i>
+        <span>para los amantes de la Empanada Venezolana.</span>
+      </p>
+      <p class="text-slate-600">
+        © 2026 La Criollita — Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Notification Toast Modal -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-empanada-500 text-slate-950 font-bold px-6 py-3 rounded-2xl shadow-2xl transition-all duration-300 transform translate-y-24 opacity-0 z-50 flex items-center gap-2">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">¡Combo guardado con éxito!</span>
+  </div>
+
+  <!-- JavaScript Code logic -->
+  <script>
+    // --- Global State for Builder ---
+    let selectedMasa = 'clasica';
+    let selectedToppings = [];
+    let selectedSalsas = [];
+
+    const masaDetails = {
+      'clasica': { name: 'Masa Tradicional', desc: 'Maíz amarillo, toquito dulce', icon: '🥟' },
+      'extra-crujiente': { name: 'Extra Crujiente', desc: 'Doble fritura super dorada', icon: '✨' },
+      'dulce': { name: 'Toque de Papelón', desc: 'Sabor agridulce criollo', icon: '🍯' }
+    };
+
+    function selectMasa(tipo) {
+      selectedMasa = tipo;
+      document.querySelectorAll('.masa-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-empanada-500', 'bg-empanada-500/10');
+        btn.classList.add('border-slate-800', 'bg-slate-900');
+      });
+      const currentBtn = document.getElementById(`masa-${tipo}`);
+      if (currentBtn) {
+        currentBtn.classList.add('active', 'border-empanada-500', 'bg-empanada-500/10');
+        currentBtn.classList.remove('border-slate-800', 'bg-slate-900');
+      }
+      updateMuerdeMetro();
+    }
+
+    function toggleTopping(topping) {
+      const idx = selectedToppings.indexOf(topping);
+      if (idx > -1) {
+        selectedToppings.splice(idx, 1);
+      } else {
+        selectedToppings.push(topping);
+      }
+      updateMuerdeMetro();
+    }
+
+    function toggleSalsa(salsa) {
+      const idx = selectedSalsas.indexOf(salsa);
+      const btn = document.getElementById(`salsa-${salsa}`);
+      if (idx > -1) {
+        selectedSalsas.splice(idx, 1);
+        if (btn) btn.classList.remove('border-empanada-500', 'bg-empanada-500/10');
+      } else {
+        selectedSalsas.push(salsa);
+        if (btn) btn.classList.add('border-empanada-500', 'bg-empanada-500/10');
+      }
+      updateMuerdeMetro();
+    }
+
+    function updateMuerdeMetro() {
+      let score = 70; // base score for pure carne mechada
+      
+      score += selectedToppings.length * 8;
+      score += selectedSalsas.length * 10;
+
+      const bebida = document.getElementById('bebidaSelect').value;
+      if (bebida === 'malta' || bebida === 'papelon') score += 5;
+
+      if (score > 100) score = 100;
+
+      // Update Bar UI
+      document.getElementById('scoreText').innerText = score + '%';
+      document.getElementById('scoreBar').style.width = score + '%';
+
+      // Verdict Text
+      const verdict = document.getElementById('scoreVerdict');
+      if (score < 80) {
+        verdict.innerText = '"Buena empanada, pero le falta salsa mi pana."';
+      } else if (score < 95) {
+        verdict.innerText = '"¡Una empanada digna de domingo en la playa!"';
+      } else {
+        verdict.innerText = '"¡NIVEL GLORIOSO! El mismísimo Olimpo Criollo."';
+      }
+
+      // Update Visual Badges & Title
+      const title = document.getElementById('comboTitle');
+      const details = document.getElementById('comboDetails');
+      const salsasContainer = document.getElementById('salsasBadges');
+      const iconsContainer = document.getElementById('visualIcons');
+
+      let iconList = '🥟 🥩';
+      if (selectedToppings.includes('queso')) iconList += ' 🧀';
+      if (selectedToppings.includes('caraotas')) iconList += ' 🫘';
+      if (selectedToppings.includes('tajadas')) iconList += ' 🍌';
+      if (selectedToppings.includes('huevo')) iconList += ' 🥚';
+      iconsContainer.innerHTML = iconList;
+
+      title.innerText = `Empanada Carne Mechada ${selectedToppings.length > 0 ? '+ ' + selectedToppings.join(', ') : 'Clásica'}`;
+      details.innerText = `${masaDetails[selectedMasa].name}. ${selectedToppings.length} agregados extra.`;
+
+      salsasContainer.innerHTML = '';
+      selectedSalsas.forEach(s => {
+        const badge = document.createElement('span');
+        badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-200 capitalize';
+        badge.innerText = '🥣 ' + s;
+        salsasContainer.appendChild(badge);
+      });
+    }
+
+    function triggerEmpanadaEffect() {
+      showToast("¡CRUNCH! Masa crujiente perfecta 💥");
+    }
+
+    function ordenarSimulacion() {
+      showToast("¡Combo Ideal guardado! Que lo disfrutes 🥟🔥");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    // --- Calculator Logic ---
+    function updateCalculatorFromRange() {
+      const val = document.getElementById('empRange').value;
+      document.getElementById('empCountInput').value = val;
+      calculateProportions(val);
+    }
+
+    function updateCalculatorFromInput() {
+      let val = parseInt(document.getElementById('empCountInput').value) || 1;
+      if (val < 1) val = 1;
+      if (val > 100) val = 100;
+      document.getElementById('empRange').value = Math.min(val, 50);
+      calculateProportions(val);
+    }
+
+    function calculateProportions(count) {
+      // Base per empanada:
+      // Harina: 50g
+      // Agua: 62.5ml
+      // Carne: 60g
+      // Sal: 0.2 cdtas
+      // Azucar: 0.1 cdas
+      
+      const harina = count * 50;
+      const agua = Math.round(count * 62.5);
+      const carne = count * 60;
+      const sal = (count * 0.2).toFixed(1);
+      const azucar = (count * 0.1).toFixed(1);
+
+      document.getElementById('resHarina').innerText = harina >= 1000 ? (harina / 1000).toFixed(2) + ' kg' : harina + ' g';
+      document.getElementById('resAgua').innerText = agua >= 1000 ? (agua / 1000).toFixed(2) + ' L' : agua + ' ml';
+      document.getElementById('resCarne').innerText = carne >= 1000 ? (carne / 1000).toFixed(2) + ' kg' : carne + ' g';
+      document.getElementById('resSal').innerText = sal + ' cdtas';
+      document.getElementById('resAzucar').innerText = azucar + ' cdas';
+    }
+
+    // --- Accordion Toggle ---
+    function toggleAccordion(id) {
+      const content = document.getElementById(id);
+      const icon = document.getElementById(`${id}-icon`);
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    // --- Quiz Logic ---
+    const quizQuestions = [
+      {
+        q: "1. Llega la empanada hirviendo a la mesa, ¿qué haces primero?",
+        options: [
+          { text: "Le abro un huequito arriba e inyecto salsa hasta que rebase.", score: "salsa" },
+          { text: "Le doy el primer mordisco sin miedo, ¡que me queme el paladar!", score: "clasico" },
+          { text: "Pido queso rallado y malta antes de tocarla.", score: "goloso" }
+        ]
+      },
+      {
+        q: "2. ¿Cuánta salsa le pones a cada mordisco?",
+        options: [
+          { text: "Salsa en cada mordisco sin excepción.", score: "salsa" },
+          { text: "Un toquecito discreto para no tapar el guiso.", score: "clasico" },
+          { text: "Mezclo Guasacaca + Ajo + Picante al mismo tiempo.", score: "goloso" }
+        ]
+      },
+      {
+        q: "3. ¿Cuál es la bebida sagrada para acompañar?",
+        options: [
+          { text: "Malta Fría sudando de helada.", score: "clasico" },
+          { text: "Papelón con Limón con bastante hielo.", score: "salsa" },
+          { text: "Refresco de Colita bien criollo.", score: "goloso" }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let quizScores = { salsa: 0, clasico: 0, goloso: 0 };
+
+    function renderQuestion() {
+      const qArea = document.getElementById('questionArea');
+      const qData = quizQuestions[currentQuestion];
+
+      let html = `
+        <p class="font-display font-bold text-lg text-white mb-4">${qData.q}</p>
+        <div class="space-y-3">
+      `;
+
+      qData.options.forEach((opt, i) => {
+        html += `
+          <button onclick="answerQuiz('${opt.score}')" class="w-full text-left p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-empanada-500 hover:bg-slate-850 text-slate-200 text-xs sm:text-sm font-semibold transition flex items-center gap-3">
+            <span class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-empanada-400 font-bold shrink-0">${i+1}</span>
+            <span>${opt.text}</span>
+          </button>
+        `;
+      });
+
+      html += `</div>`;
+      qArea.innerHTML = html;
+    }
+
+    function answerQuiz(type) {
+      quizScores[type]++;
+      currentQuestion++;
+
+      if (currentQuestion < quizQuestions.length) {
+        renderQuestion();
+      } else {
+        showQuizResult();
+      }
+    }
+
+    function showQuizResult() {
+      document.getElementById('quizContainer').classList.add('hidden');
+      const resCard = document.getElementById('quizResult');
+      resCard.classList.remove('hidden');
+
+      const emoji = document.getElementById('resultEmoji');
+      const title = document.getElementById('resultTitle');
+      const desc = document.getElementById('resultDesc');
+
+      if (quizScores.salsa >= quizScores.clasico && quizScores.salsa >= quizScores.goloso) {
+        emoji.innerText = "🥑";
+        title.innerText = "¡El Bañado en Guasacaca!";
+        desc.innerText = "Para ti la empanada es solo una excusa crujiente para transportar salsas. Sin un baño verde o de ajo no hay felicidad completa.";
+      } else if (quizScores.goloso >= quizScores.clasico) {
+        emoji.innerText = "👑";
+        title.innerText = "¡El Goloso Supremo!";
+        desc.innerText = "Te gusta la empanada 'Operada' con caraotas, queso, tajadas y todas las salsas habidas y por haber. ¡Sabor sin limites!";
+      } else {
+        emoji.innerText = "🥟";
+        title.innerText = "¡El Purista Criollo!";
+        desc.innerText = "Aprecias el guiso perfecto y la masa crujiente doradita. No necesitas tapar el sabor porque sabes distinguir una buena carne mechada a leguas.";
+      }
+    }
+
+    function resetQuiz() {
+      currentQuestion = 0;
+      quizScores = { salsa: 0, clasico: 0, goloso: 0 };
+      document.getElementById('quizResult').classList.add('hidden');
+      document.getElementById('quizContainer').classList.remove('hidden');
+      renderQuestion();
+    }
+
+    // Initialize on load
+    window.onload = function() {
+      updateMuerdeMetro();
+      calculateProportions(12);
+      renderQuestion();
+    };
+  </script>
+</body>
+</html>
